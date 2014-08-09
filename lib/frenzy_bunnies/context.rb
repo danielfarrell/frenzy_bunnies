@@ -5,11 +5,11 @@ class FrenzyBunnies::Context
 
   def initialize(opts={})
     @opts = opts
-    @opts[:host]     ||= 'localhost'
+    @opts[:uri] ||= ENV['RABBITMQ_URL'] || 'amqp://guest:guest@localhost:5672'
     @opts[:heartbeat] ||= 5
 
     @logger = @opts[:logger] || Logger.new(STDOUT)
-    params = {:host => @opts[:host], :heartbeat_interval => @opts[:heartbeat]}
+    params = {:uri => @opts[:uri], :heartbeat_interval => @opts[:heartbeat]}
     (params[:username], params[:password] = @opts[:username], @opts[:password]) if @opts[:username] && @opts[:password]
     (params[:port] = @opts[:port]) if @opts[:port]
     @connection = MarchHare.connect(params)
