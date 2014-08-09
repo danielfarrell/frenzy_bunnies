@@ -109,7 +109,6 @@ Global / running configuration can be set through the running context `FrenzyBun
 ```ruby
 :host       # default 'localhost'
 :heartbeat  # default 5
-:env        # default ''
 ```
 
 
@@ -126,7 +125,7 @@ semantics, the following is the AMQP wireup used within this library:
 
 * Durable per configuration
 * The exchange is created and named by default `frenzy_bunnies`
-* Each worker is bound to an AMQP queue named `my_queue_environment` with the environment postfix appended automatically.
+* Each worker is bound to an AMQP queue named `my_queue`.
 * The routing key on the exchange is of the same name and bound to the queue.
 
 # Contributing

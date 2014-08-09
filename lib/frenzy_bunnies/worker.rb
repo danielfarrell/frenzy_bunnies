@@ -25,8 +25,6 @@ module FrenzyBunnies::Worker
 
       @logger = context.logger
 
-      queue_name = "#{@queue_name}_#{context.env}"
-
       @queue_opts[:prefetch] ||= 10
       @queue_opts[:durable] ||= false
       @queue_opts[:timeout_job_after] ||=5
@@ -37,9 +35,9 @@ module FrenzyBunnies::Worker
         @thread_pool = MarchHare::ThreadPools.dynamically_growing
       end
 
-      q = context.queue_factory.build_queue(queue_name, @queue_opts)
+      q = context.queue_factory.build_queue(@queue_name, @queue_opts)
 
-      say "#{@queue_opts[:threads] ? "#{@queue_opts[:threads]} threads " : ''}with #{@queue_opts[:prefetch]} prefetch on <#{queue_name}>."
+      say "#{@queue_opts[:threads] ? "#{@queue_opts[:threads]} threads " : ''}with #{@queue_opts[:prefetch]} prefetch on <#{@queue_name}>."
 
       q.subscribe(:ack => true, :blocking => false, :executor => @thread_pool) do |h, msg|
         wkr = new

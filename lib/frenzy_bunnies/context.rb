@@ -1,15 +1,13 @@
 require 'logger'
 
 class FrenzyBunnies::Context
-  attr_reader :queue_factory, :logger, :env, :opts
+  attr_reader :queue_factory, :logger, :opts
 
   def initialize(opts={})
     @opts = opts
     @opts[:host]     ||= 'localhost'
     @opts[:heartbeat] ||= 5
-    @opts[:env] ||= 'development'
 
-    @env = @opts[:env]
     @logger = @opts[:logger] || Logger.new(STDOUT)
     params = {:host => @opts[:host], :heartbeat_interval => @opts[:heartbeat]}
     (params[:username], params[:password] = @opts[:username], @opts[:password]) if @opts[:username] && @opts[:password]
