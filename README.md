@@ -116,7 +116,7 @@ Global / running configuration can be set through the running context `FrenzyBun
 Example:
 
 ```ruby
-FrenzyBunnies::Context.new :heartbeat=> 10
+FrenzyBunnies::Context.new :heartbeat => 10
 ```
 
 ### AMQP Queue Wiring Under the Hood
